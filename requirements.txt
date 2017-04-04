@@ -1,0 +1,9 @@
+Flask
+Flask-Login
+gevent
+pymongo
+requests[security]
+gunicorn
+redis
+celery
+simplejson
