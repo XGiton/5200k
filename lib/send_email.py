@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 import smtplib
-from config.default_celery import celery_app
+from configs.default_celery import celery_app
 
 
 @celery_app.task(name='send_error_email')

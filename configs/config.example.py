@@ -7,9 +7,10 @@ Copy this file to configs/__init__.py
 # -------------------------------------------------
 ROOT_PATH = ''
 DEBUG = True
-PORT = 6006
-# If production environment, different from DEBUG
-PRODUCTION = False
+PORT = 5200
+SECRET_KEY = ''
+CAPTCHA_FREQUENCY = 60
+HOST_TYPE = 'Product'
 
 
 # -------------------------------------------------
@@ -40,3 +41,10 @@ IS_REPLICA = False
 # -------------------------------------------------
 LOG_REPEAT_TIMES = 5
 LOG_INTERVAL_TIME = 60 * 60 * 24
+
+
+# -------------------------------------------------
+# App Config || 微信小程序配置
+# -------------------------------------------------
+WX_APP_ID = ''
+WX_APP_SECRET = ''

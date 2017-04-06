@@ -3,7 +3,7 @@
 Define different log handler here
 """
 from cache import r
-from config import (
+from configs import (
     EMAIL_HOST,
     EMAIL_ADDR,
     EMAIL_SUBJECT,
@@ -12,7 +12,7 @@ from config import (
     LOG_REPEAT_TIMES,
     LOG_INTERVAL_TIME,
 )
-from config.default_celery import celery_app
+from configs.default_celery import celery_app
 from logging import Handler, Filter, Formatter, WARNING, ERROR, INFO
 from logging.handlers import SMTPHandler, HTTPHandler
 
