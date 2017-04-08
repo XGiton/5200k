@@ -13,7 +13,7 @@ from model.user import User
 
 
 class Error(object):
-    USER_ERROR = 1000
+    # USER_ERROR = 1000
     GET_SESSION_FROM_WX_FAILED = {
         'err': USER_ERROR + 1,
         'msg': 'Get session key from wx failed'
@@ -135,3 +135,6 @@ def get_current_user_profile():
     )
 
     return jsonify(stat=1, **user), 200
+
+
+

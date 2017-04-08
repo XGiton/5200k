@@ -6,23 +6,60 @@
 
 ---
 
+## 搭建环境
+
+1. 更新源
+
+    ```shell
+    sudo apt-get update && sudo apt-get upgrade
+    ```
+
+2. 安装git
+
+    ```shell
+    sudo apt-get install git
+    ```
+
+3. 安装virtualenv
+
+    ```shell
+    sudo apt-get install python-pip
+    sudo pip install virtualenv
+    ```
+
+4. 配置ssh key
+
+
 ## 安装使用
 
 本项目使用[Python 2.7](https://www.python.org/downloads/), [MongoDB 3.2.7](https://www.mongodb.org/) 版本。
 
+1. 创建项目Python运行环境
+
+    ```shell
+    virtualenv 5200k
+    ```
+
 1. 同步代码
 
     使用git下拉代码。
+    ```shell
+    cd 5200k
+    git clone xxx.git
+    ```
 
 2. 安装依赖
 
-    建议使用 Python 虚拟环境运行项目，打开虚拟环境后，在项目根目录下运行 `pip install -r requirements.txt` 安装依赖的 python 第三方库。
+    ```shell
+    source ../bin/activate
+    pip install -r requirements.txt
+    ```
     如果安装过程中出现错误，尝试安装依赖的系统库 `sudo apt-get install python-dev libffi-dev libssl-dev libxml2 libxml2-dev libxslt-dev`。
 
 3. 设置配置
 
     在项目根目录的 configs 文件夹下，把 `configs.example.py` 复制至相同目录下的 `__init__.py` 文件
-    并修改里面的配置项。每个子模块都有自己独立的配置项，需要在其根目录下把 `config.example.py` 复制至当前目录的 `configs.py` 文件。
+    并修改里面的配置项。把 model 目录下 `config.example.py` 复制至该目录的 `configs.py` 文件。
 
 4. 运行程序
 

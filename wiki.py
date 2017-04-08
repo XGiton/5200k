@@ -3,9 +3,10 @@
 import os
 import subprocess
 import sys
+import urllib
 
 import api
-import model
+import model.user
 
 
 wiki_dir = sys.path[0] + '/wiki/'
@@ -14,8 +15,7 @@ wiki_dir = sys.path[0] + '/wiki/'
 if os.path.exists(wiki_dir):
     p = subprocess.Popen('git pull origin master', cwd=wiki_dir, shell=True)
 else:
-    sh = 'mkdir wiki && cd wiki && git init &&  git remote add origin\
-        git@github.com:XGiton/base_project.wiki.git'
+    sh = 'mkdir wiki && cd wiki && git init &&  git remote add origin\git@github.com:XGiton/5200k.wiki.git'
     p = subprocess.Popen(sh, cwd=sys.path[0], shell=True)
 p.wait()
 
@@ -49,14 +49,9 @@ def make_api_page(filename, func_list):
             title = 'API-%d %s' % (index + 1, title)
 
             def deal(string):
-                string = string.lower().replace(' ', '-')
-                s = []
-                for a in string:
-                    if a in '1234567890abcdefghijklmnopqrstuvwxyz-':
-                        s.append(a)
-                if s[-1] == '-':
-                    s.pop(-1)
-                return "".join(s)
+                string = string.lower().replace(' ', '-').replace('/', '')
+                return urllib.quote(string.replace(')', '').replace('(', ''))
+
             return '* [%s](#%s)\n' % (title, deal(title))
 
         for ind, fun in enumerate(func_list):
@@ -76,7 +71,6 @@ def make_api_page(filename, func_list):
                              if is_head(l) else l[4:] + '\n',
                              fc.__doc__.splitlines()))
 
-
 def make_model_page(filename, mod):
     with open(wiki_dir + '.'.join([filename, 'markdown']), 'w') as f:
         # remove first 4 whitespaces
@@ -86,12 +80,15 @@ def make_model_page(filename, mod):
 
 wiki_api = {
     'API-User': [
+        api.user.Error,
+        api.user.login,
+        api.user.get_current_user_profile,
     ],
 }
 
 
 wiki_model = {
-    "Model-Setting": model.setting.Setting,
+    'Model-User': model.user.User,
 }
 
 # Generate wiki pages for apis.
