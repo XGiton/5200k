@@ -17,6 +17,7 @@ class User(UserMixin):
         * `2` - 女
     * `openid` (str) - 微信openid(该数据不能返回前端，用作用户的唯一标识)
     * `session_key` (str) - 微信session key(该数据不能返回前端)
+    * `create_time` (datetime utcnow) - 创建时间
 
     ---
     """
@@ -35,6 +36,7 @@ class User(UserMixin):
         gender = 'gender'
         openid = 'openid'
         session_key = 'session_key'
+        create_time = 'create_time'
 
     class Gender(object):
         """ 性别"""

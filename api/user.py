@@ -83,7 +83,8 @@ def login():
             User.Field.description: '',
             User.Field.gender: request.form.get('gender', 0, type=int),
             User.Field.openid: openid,
-            User.Field.session_key: session_key
+            User.Field.session_key: session_key,
+            User.Field.create_time: datetime.utcnow()
         }
         try:
             User.p_col.insert_one(user)
@@ -137,4 +138,56 @@ def get_current_user_profile():
     return jsonify(stat=1, **user), 200
 
 
+@api.route('/user/profile', methods=['PUT'])
+@login_required
+def set_user_profile():
+    """
+    ## 修改个人简介
 
+        PUT '/api/user/profile'
+
+    Params:
+    * `nick_name` (str) - 昵称
+    * `description` (str) - 简介
+    * `avatar_url` (str) - 头像
+    * `gender` (int) - 性别
+        * `0` - 未知
+        * `1` - 男
+        * `2` - 女
+
+    Returns:
+    * `None`
+
+    Errors:
+
+    ---
+    """
+    nick_name = request.form['nick_name'].strip()
+    description = request.form['description'].strip()
+    avatar_url = request.form['avatar_url'].strip()
+    gender = request.form.get('gender', type=int)
+
+    if not nick_name:
+        abort(400)
+    if not description:
+        abort(400)
+    if not avatar_url:
+        abort(400)
+    if gender not in [0, 1, 2]:
+        abort(400)
+
+    User.p_col.update_one(
+        {
+            '_id': current_user['_id']
+        },
+        {
+            '$set': {
+                User.Field.nick_name: nick_name,
+                User.Field.avatar_url: avatar_url,
+                User.Field.description: description,
+                User.Field.gender: gender
+            }
+        }
+    )
+
+    return jsonify(stat=1), 200
